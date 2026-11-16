@@ -1,0 +1,64 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:ui="jakarta.faces.facelets">
+
+    <aside class="app-menu">
+
+        <h:link outcome="/admin/index.xhtml" styleClass="app-menu-logo">
+            <i class="pi pi-eye"></i>
+            <span>Laboratório Óptico</span>
+        </h:link>
+
+        <div class="app-menu-titulo">MENU PRINCIPAL</div>
+
+        <ul>
+            <li>
+                <h:link outcome="/admin/index.xhtml"
+                        styleClass="app-menu-link #{view.viewId == '/admin/index.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-home"></i>
+                    <span>Início</span>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/admin/pedidos.xhtml"
+                        styleClass="app-menu-link #{view.viewId == '/admin/pedidos.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-shopping-cart"></i>
+                    <span>Pedidos de Lentes</span>
+                </h:link>
+            </li>
+        </ul>
+
+        <div class="app-menu-titulo">CADASTROS</div>
+
+        <ul>
+            <li>
+                <h:link outcome="/admin/oticas.xhtml"
+                        styleClass="app-menu-link #{view.viewId == '/admin/oticas.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-building"></i>
+                    <span>Óticas</span>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/admin/lentes.xhtml"
+                        styleClass="app-menu-link #{view.viewId == '/admin/lentes.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-eye"></i>
+                    <span>Lentes</span>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/admin/armacoes.xhtml"
+                        styleClass="app-menu-link #{view.viewId == '/admin/armacoes.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-tag"></i>
+                    <span>Armações</span>
+                </h:link>
+            </li>
+        </ul>
+
+        <div class="app-menu-rodape">
+            Sistema de Gestão Óptica<br/>Versão 1.0
+        </div>
+
+    </aside>
+
+</ui:composition>

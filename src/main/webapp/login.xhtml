@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      lang="pt-BR">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </f:facet>
+    <title>Entrar - Laboratório Óptico</title>
+
+    <h:outputStylesheet name="css/primeicons.css" library="manhattan-layout"/>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0e7490 0%, #06a6c7 55%, #67e8f9 100%);
+            font-family: "Source Sans Pro", Arial, sans-serif;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 380px;
+            margin: 16px;
+            padding: 36px 32px 28px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 18px 40px rgba(8, 51, 68, 0.25);
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .login-logo i {
+            font-size: 42px;
+            color: #06a6c7;
+        }
+        .login-logo h1 {
+            margin: 10px 0 2px;
+            font-size: 22px;
+            color: #1e293b;
+        }
+        .login-logo p {
+            margin: 0;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .login-campo {
+            margin-bottom: 16px;
+        }
+        .login-campo label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .login-campo .ui-inputfield,
+        .login-campo .ui-password,
+        .login-campo .ui-password input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .login-botao.ui-button {
+            width: 100%;
+            margin-top: 8px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="login-card">
+        <div class="login-logo">
+            <i class="pi pi-eye"></i>
+            <h1>Laboratório Óptico</h1>
+            <p>Acesso administrativo</p>
+        </div>
+
+        <h:form id="formLogin">
+            <p:messages id="mensagens" closable="true"/>
+
+            <div class="login-campo">
+                <p:outputLabel for="login" value="Usuário"/>
+                <p:inputText id="login"
+                             value="#{loginController.login}"
+                             required="true"
+                             requiredMessage="Informe o usuário."
+                             autocomplete="username"/>
+            </div>
+
+            <div class="login-campo">
+                <p:outputLabel for="senha" value="Senha"/>
+                <p:password id="senha"
+                            value="#{loginController.senha}"
+                            required="true"
+                            requiredMessage="Informe a senha."
+                            autocomplete="current-password"/>
+            </div>
+
+            <p:commandButton value="Entrar"
+                             icon="pi pi-sign-in"
+                             action="#{loginController.entrar}"
+                             update="mensagens"
+                             styleClass="login-botao"/>
+        </h:form>
+    </div>
+</h:body>
+</html>

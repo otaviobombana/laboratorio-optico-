@@ -1,0 +1,68 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Início
+    </ui:define>
+
+    <ui:define name="content">
+
+        <style>
+            .painel-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+            .painel-card {
+                padding: 18px 20px;
+                background: #ffffff;
+                border-radius: 10px;
+                border-left: 5px solid #06a6c7;
+                box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+            }
+            .painel-card .numero {
+                font-size: 30px;
+                font-weight: 700;
+                color: #1e293b;
+            }
+            .painel-card .rotulo {
+                margin-top: 8px;
+            }
+            .atalhos {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        </style>
+
+        <h2 style="margin-top:0">
+            Olá, #{loginController.usuarioLogado.nome}!
+        </h2>
+
+        <p:panel header="Pedidos por status">
+            <div class="painel-cards">
+                <ui:repeat value="#{inicioController.statusPossiveis}" var="s">
+                    <div class="painel-card">
+                        <div class="numero">#{inicioController.total(s)}</div>
+                        <div class="rotulo">
+                            <p:tag value="#{s.descricao}" severity="#{s.cor}"/>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </p:panel>
+
+        <p:spacer height="15"/>
+
+
+
+
+    </ui:define>
+
+</ui:composition>

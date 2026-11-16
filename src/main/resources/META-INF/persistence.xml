@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="LaboratorioPU" transaction-type="JTA">
+
+        <!-- Datasource definido no web.xml (nao precisa configurar nada no admin do GlassFish) -->
+        <jta-data-source>java:app/jdbc/LaboratorioOptico</jta-data-source>
+
+        <class>br.com.laboratoriooptico.model.Usuario</class>
+        <class>br.com.laboratoriooptico.model.Otica</class>
+        <class>br.com.laboratoriooptico.model.Lente</class>
+        <class>br.com.laboratoriooptico.model.Armacao</class>
+        <class>br.com.laboratoriooptico.model.Pedido</class>
+        <class>br.com.laboratoriooptico.model.ItemPedido</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <!-- GlassFish usa EclipseLink: cria as tabelas que faltam e as colunas novas -->
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <property name="eclipselink.logging.level" value="INFO"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>

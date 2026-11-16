@@ -1,0 +1,38 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="jakarta.faces.facelets">
+
+    <header class="app-topo">
+
+        <div class="app-topo-esquerda">
+            <button type="button"
+                    class="app-botao-menu"
+                    title="Abrir menu"
+                    aria-label="Abrir menu"
+                    onclick="document.body.classList.toggle('menu-aberto')">
+                <i class="pi pi-bars"></i>
+            </button>
+            <span>Sistema de Gestão Óptica</span>
+        </div>
+
+        <div class="app-topo-direita">
+            <span class="app-usuario">
+                <span class="avatar"><i class="pi pi-user"></i></span>
+                <span class="nome">#{loginController.usuarioLogado.nome}</span>
+            </span>
+
+            <h:form id="formSair">
+                <p:commandButton value="Sair"
+                                 icon="pi pi-sign-out"
+                                 action="#{loginController.sair}"
+                                 ajax="false"
+                                 immediate="true"
+                                 styleClass="ui-button-outlined ui-button-secondary"/>
+            </h:form>
+        </div>
+
+    </header>
+
+</ui:composition>

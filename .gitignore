@@ -1,0 +1,12 @@
+﻿target/
+.idea/
+*.iml
+nbproject/private/
+.classpath
+.project
+.settings/
+
+# Arquivos locais e dados sensíveis
+.env
+.env.*
+*.log

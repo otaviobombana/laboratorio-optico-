@@ -1,0 +1,54 @@
+CREATE TABLE IF NOT EXISTS usuario (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    senha_hash VARCHAR(64) NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS otica (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    cnpj VARCHAR(18),
+    telefone VARCHAR(20),
+    email VARCHAR(150),
+    endereco VARCHAR(200),
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS lente (
+    id BIGSERIAL PRIMARY KEY,
+    codigo VARCHAR(30) NOT NULL UNIQUE,
+    descricao VARCHAR(150) NOT NULL,
+    valor NUMERIC(10, 2) NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS armacao (
+    id BIGSERIAL PRIMARY KEY,
+    codigo VARCHAR(30) NOT NULL UNIQUE,
+    marca VARCHAR(80) NOT NULL,
+    modelo VARCHAR(80) NOT NULL,
+    cor VARCHAR(40),
+    valor NUMERIC(10, 2) NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS pedido (
+    id BIGSERIAL PRIMARY KEY,
+    otica_id BIGINT NOT NULL REFERENCES otica (id),
+    paciente VARCHAR(150) NOT NULL,
+    data_pedido DATE NOT NULL,
+    data_previsao DATE,
+    status VARCHAR(20) NOT NULL,
+    observacao VARCHAR(500)
+);
+
+CREATE TABLE IF NOT EXISTS item_pedido (
+    id BIGSERIAL PRIMARY KEY,
+    pedido_id BIGINT NOT NULL REFERENCES pedido (id),
+    lente_id BIGINT NOT NULL REFERENCES lente (id),
+    armacao_id BIGINT REFERENCES armacao (id),
+    quantidade INTEGER NOT NULL,
+    valor_unitario NUMERIC(10, 2) NOT NULL
+);

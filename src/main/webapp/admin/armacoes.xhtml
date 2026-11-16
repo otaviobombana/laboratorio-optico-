@@ -1,0 +1,196 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Cadastro de Armações
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:growl id="mensagens" showDetail="true" life="4000"/>
+
+            <p:panel id="cadastro" header="Cadastro de Armações">
+
+                <p:panelGrid columns="2"
+                             layout="grid"
+                             styleClass="ui-fluid"
+                             columnClasses="ui-grid-col-6,ui-grid-col-6">
+
+                    <p:outputLabel for="codigo" value="Código"/>
+                    <p:inputText id="codigo"
+                                 value="#{armacaoController.armacao.codigo}"
+                                 maxlength="30"
+                                 required="true"
+                                 requiredMessage="Informe o código da armação."/>
+
+                    <p:outputLabel for="marca" value="Marca"/>
+                    <p:inputText id="marca"
+                                 value="#{armacaoController.armacao.marca}"
+                                 maxlength="80"
+                                 required="true"
+                                 requiredMessage="Informe a marca."/>
+
+                    <p:outputLabel for="modelo" value="Modelo"/>
+                    <p:inputText id="modelo"
+                                 value="#{armacaoController.armacao.modelo}"
+                                 maxlength="80"
+                                 required="true"
+                                 requiredMessage="Informe o modelo."/>
+
+                    <p:outputLabel for="cor" value="Cor"/>
+                    <p:inputText id="cor"
+                                 value="#{armacaoController.armacao.cor}"
+                                 maxlength="40"/>
+
+                    <p:outputLabel for="valor" value="Valor"/>
+                    <p:inputNumber id="valor"
+                                   value="#{armacaoController.armacao.valor}"
+                                   decimalPlaces="2"
+                                   decimalSeparator=","
+                                   thousandSeparator="."
+                                   symbol="R$ "
+                                   minValue="0"
+                                   required="true"
+                                   requiredMessage="Informe o valor da armação."/>
+
+                    <p:outputLabel for="ativo" value="Situação"/>
+                    <p:selectBooleanCheckbox id="ativo"
+                                             value="#{armacaoController.armacao.ativo}"
+                                             itemLabel="Armação ativa"/>
+
+                </p:panelGrid>
+
+                <p:separator/>
+
+                <p:commandButton value="Salvar"
+                                 icon="pi pi-save"
+                                 action="#{armacaoController.salvar}"
+                                 process="cadastro"
+                                 update="cadastro tabela mensagens"
+                                 styleClass="ui-button-success"/>
+
+                <p:commandButton value="Novo"
+                                 icon="pi pi-plus"
+                                 action="#{armacaoController.novo}"
+                                 process="@this"
+                                 update="cadastro"
+                                 styleClass="ui-button-secondary"
+                                 style="margin-left:8px">
+                    <p:resetInput target="cadastro"/>
+                </p:commandButton>
+
+            </p:panel>
+
+            <p:spacer height="15"/>
+
+            <p:panel header="Armações cadastradas">
+
+                <p:outputLabel for="pesquisa" value="Pesquisar por código, marca ou modelo"/>
+
+                <p:inputText id="pesquisa"
+                             value="#{armacaoController.pesquisa}"
+                             placeholder="Digite o código, marca ou modelo..."/>
+
+                <p:commandButton value="Pesquisar"
+                                 icon="pi pi-search"
+                                 action="#{armacaoController.pesquisar}"
+                                 process="@this pesquisa"
+                                 update="tabela"
+                                 style="margin-left:8px"/>
+
+                <p:commandButton value="Limpar pesquisa"
+                                 icon="pi pi-times"
+                                 action="#{armacaoController.atualizarLista}"
+                                 process="@this"
+                                 update="tabela"
+                                 styleClass="ui-button-secondary"
+                                 style="margin-left:8px"/>
+
+                <p:separator/>
+
+                <p:dataTable id="tabela"
+                             value="#{armacaoController.armacoes}"
+                             var="item"
+                             emptyMessage="Nenhuma armação cadastrada."
+                             paginator="true"
+                             rows="10">
+
+                    <p:column headerText="Código">
+                        <h:outputText value="#{item.codigo}"/>
+                    </p:column>
+
+                    <p:column headerText="Marca" sortBy="#{item.marca}">
+                        <h:outputText value="#{item.marca}"/>
+                    </p:column>
+
+                    <p:column headerText="Modelo">
+                        <h:outputText value="#{item.modelo}"/>
+                    </p:column>
+
+                    <p:column headerText="Cor">
+                        <h:outputText value="#{item.cor}"/>
+                    </p:column>
+
+                    <p:column headerText="Valor">
+                        <h:outputText value="#{item.valor}">
+                            <f:convertNumber type="currency" currencySymbol="R$ " locale="pt_BR"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Situação">
+                        <p:tag value="#{item.ativo ? 'Ativa' : 'Inativa'}"
+                               severity="#{item.ativo ? 'success' : 'danger'}"/>
+                    </p:column>
+
+                    <p:column headerText="Ações" width="150">
+
+                        <p:commandButton icon="pi pi-pencil"
+                                         title="Editar"
+                                         action="#{armacaoController.editar(item)}"
+                                         process="@this"
+                                         update=":form:cadastro :form:mensagens"
+                                         styleClass="ui-button-warning"
+                                         style="margin-right:5px">
+                            <p:resetInput target=":form:cadastro"/>
+                        </p:commandButton>
+
+                        <p:commandButton icon="pi pi-trash"
+                                         title="Excluir"
+                                         action="#{armacaoController.excluir(item)}"
+                                         process="@this"
+                                         update=":form:tabela :form:mensagens"
+                                         styleClass="ui-button-danger">
+                            <p:confirm header="Confirmação"
+                                       message="Deseja realmente excluir esta armação?"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+
+                    </p:column>
+
+                </p:dataTable>
+
+            </p:panel>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim"
+                                 type="button"
+                                 styleClass="ui-confirmdialog-yes ui-button-danger"
+                                 icon="pi pi-check"/>
+                <p:commandButton value="Não"
+                                 type="button"
+                                 styleClass="ui-confirmdialog-no ui-button-secondary"
+                                 icon="pi pi-times"/>
+            </p:confirmDialog>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
