@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>SGLO - Laboratório Óptico</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #12304a;
+            color: white;
+            padding: 24px 40px;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 32px;
+        }
+
+        .painel {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0000000d;
+        }
+
+        .botao {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 20px;
+            background: #087e8b;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <header>
+        <h1>SGLO</h1>
+        <p>Sistema de Gestão de Laboratório Óptico</p>
+    </header>
+
+    <main>
+        <section class="painel">
+            <h2>Bem-vindo ao SGLO!</h2>
+            <p>
+                Sistema para controle de serviços ópticos,
+                movimentações e expedição.
+            </p>
+
+            <h3>Ambiente de desenvolvimento</h3>
+            <p>Java 21 · Jakarta Faces · Payara 6 · PostgreSQL</p>
+
+            <h:form>
+                <h:commandButton value="Testar JSF"
+                                 action="#{null}"
+                                 styleClass="botao" />
+            </h:form>
+        </section>
+    </main>
+</h:body>
+</html>
